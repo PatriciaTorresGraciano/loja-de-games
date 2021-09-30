@@ -4,22 +4,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity(name = "tb_categoria")
-public class CategoriaLoja {
+public class CategoriaModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idCategoria;
 	
-	@NotNull
-	@Size (min = 2, max = 50)
+	@NotBlank
 	private String nomeLoja;
 
-	@NotNull
-	@Size (min = 2, max = 200)
+	@NotBlank
 	private String tipoProduto;
 
 	
