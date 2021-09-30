@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -14,22 +15,19 @@ public class ProdutoModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idProduto;
 	
-	@NotNull
-	@Size (min = 2, max = 50)
+	@NotBlank
 	private String nomeProduto;
 
-	@NotNull
-	@Size (min = 2, max = 500)
+	@NotBlank
 	private String imagemProduto;
 	
-	@NotNull
+	@NotBlank
 	private double precoProduto;
 	
-	@NotNull
+	@NotBlank
 	private int qtProduto;
 
-	@NotNull
-	@Size (min = 2, max = 500)
+	@NotBlank
 	private String descricaoProduto;
 	
 
