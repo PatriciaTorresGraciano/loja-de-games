@@ -15,19 +15,19 @@ public class ProdutoModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idProduto;
 	
-	@NotBlank
+	
 	private String nomeProduto;
 
-	@NotBlank
+	
 	private String imagemProduto;
 	
-	@NotBlank
+	
 	private double precoProduto;
 	
-	@NotBlank
+	
 	private int qtProduto;
 
-	@NotBlank
+	
 	private String descricaoProduto;
 	
 
