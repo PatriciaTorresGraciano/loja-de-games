@@ -23,7 +23,7 @@ public class CategoriaController {
 	
 	private @Autowired CategoriaRepository repository;
 	
-	@GetMapping ("/todas")
+	@GetMapping
 	public ResponseEntity<List<CategoriaModel>> pegarTodos() {
 		return ResponseEntity.ok(repository.findAll());
 		
