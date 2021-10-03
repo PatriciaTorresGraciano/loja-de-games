@@ -1,12 +1,16 @@
 package br.com.generation.loja.games.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name = "tb_categoria")
 public class CategoriaModel {
@@ -20,7 +24,13 @@ public class CategoriaModel {
 
 	@NotBlank
 	private String tipoProduto;
-
+	
+	//mappedBy --> Indicar qual o campo da outra tabela que faz ligação com o atributo produto
+	// cascade --> Ao excluir uma categoria exclui todos produtos vinculados a ela, sem dar erro
+	//JsonIgnoreProperties --> Evitar recursividade, ou seja, chamar várias vezes categoria e produto  
+	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL) 
+	@JsonIgnoreProperties("categoria") 
+	private List<ProdutoModel> produtos;
 	
 	public long getIdCategoria() {
 		return idCategoria;
@@ -44,6 +54,14 @@ public class CategoriaModel {
 
 	public void setTipoProduto(String tipoProduto) {
 		this.tipoProduto = tipoProduto;
+	}
+
+	public List<ProdutoModel> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<ProdutoModel> produtos) {
+		this.produtos = produtos;
 	}
 
 	
