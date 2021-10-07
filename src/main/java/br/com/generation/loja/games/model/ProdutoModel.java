@@ -4,12 +4,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
-@Entity
+@Entity(name = "tb_produto")
 public class ProdutoModel {
 
 	@Id
@@ -31,8 +34,11 @@ public class ProdutoModel {
 	
 	private String descricaoProduto;
 	
+	// JoinColumn --> Criação da chave estrangeira na tabela produto
 	@ManyToOne
-	@JsonIgnoreProperties("produto")
+	@JoinColumn(name = "categoria_idCategoria", nullable = false)
+	@JsonIgnoreProperties("categoria")
+
 	private CategoriaModel categoria;
 
  	public long getIdProduto() {
@@ -67,6 +73,14 @@ public class ProdutoModel {
 		this.qtProduto = qtProduto;
 	}
 
+	public String getImagemProduto() {
+		return imagemProduto;
+	}
+
+	public void setImagemProduto(String imagemProduto) {
+		this.imagemProduto = imagemProduto;
+	}
+
 	public String getDescricaoProduto() {
 		return descricaoProduto;
 	}
@@ -75,15 +89,12 @@ public class ProdutoModel {
 		this.descricaoProduto = descricaoProduto;
 	}
 
-	public String getImagemProduto() {
-		return imagemProduto;
+	public CategoriaModel getCategoria() {
+		return categoria;
 	}
 
-	public void setImagemProduto(String imagemProduto) {
-		this.imagemProduto = imagemProduto;
+	public void setCategoria(CategoriaModel categoria) {
+		this.categoria = categoria;
 	}
-	
-	
-	
 
 }
