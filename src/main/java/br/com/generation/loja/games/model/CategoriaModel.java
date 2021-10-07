@@ -1,14 +1,16 @@
 package br.com.generation.loja.games.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
-@Entity(name = "tb_categoria")
+@Entity
 public class CategoriaModel {
 	
 	@Id
@@ -16,12 +18,11 @@ public class CategoriaModel {
 	private long idCategoria;
 	
 	@NotBlank
-	private String nomeLoja;
-
-	@NotBlank
-	private String tipoProduto;
-
+	private String categoria;
 	
+	@OneToMany(mappedBy = "Produto", cascade = CascadeType.ALL)
+	private List<ProdutoModel> produtos;
+
 	public long getIdCategoria() {
 		return idCategoria;
 	}
@@ -30,21 +31,14 @@ public class CategoriaModel {
 		this.idCategoria = idCategoria;
 	}
 
-	public String getNomeLoja() {
-		return nomeLoja;
+	public String getCategoria() {
+		return categoria;
 	}
 
-	public void setNomeLoja(String nomeLoja) {
-		this.nomeLoja = nomeLoja;
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
-
-	public String getTipoProduto() {
-		return tipoProduto;
-	}
-
-	public void setTipoProduto(String tipoProduto) {
-		this.tipoProduto = tipoProduto;
-	}
+	
 
 	
 }

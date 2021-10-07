@@ -31,15 +31,15 @@ public class ProdutoController {
 		return ResponseEntity.ok(repository.findAll());
 	}
 
-	@GetMapping("/id{id_produto}")
+	@GetMapping("/id {id}")
 	public ResponseEntity<ProdutoModel> pegarId(@PathVariable Long id) {
 		return repository.findById(id).map(produto -> ResponseEntity.ok(produto))
 				.orElse(ResponseEntity.notFound().build());
 	}
 
-	@GetMapping("/produto{nome_produto}")
-	public ResponseEntity<List<ProdutoModel>> pegarNomeProduto(@PathVariable String nomeProduto){
-		return ResponseEntity.ok(repository.findAllByNomeProdutoContainingIgnoreCase(nomeProduto));
+	@GetMapping("/produto{nome}")
+	public ResponseEntity<List<ProdutoModel>> pegarNomeProduto(@PathVariable String nome){
+		return ResponseEntity.ok(repository.findAllByNomeProdutoContainingIgnoreCase(nome));
 		
 	}
 
