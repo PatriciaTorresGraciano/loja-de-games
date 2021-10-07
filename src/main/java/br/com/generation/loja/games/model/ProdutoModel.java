@@ -19,28 +19,29 @@ public class ProdutoModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idProduto;
 	
-	@NotBlank
+	
 	private String nomeProduto;
 
-	@NotBlank
+	
 	private String imagemProduto;
 	
-	@NotBlank
+	
 	private double precoProduto;
 	
-	@NotBlank
+	
 	private int qtProduto;
 
-	@NotBlank
+	
 	private String descricaoProduto;
 	
 	// JoinColumn --> Criação da chave estrangeira na tabela produto
 	@ManyToOne
 	@JoinColumn(name = "categoria_idCategoria", nullable = false)
 	@JsonIgnoreProperties("categoria")
+
 	private CategoriaModel categoria;
 
-	public long getIdProduto() {
+ 	public long getIdProduto() {
 		return idProduto;
 	}
 

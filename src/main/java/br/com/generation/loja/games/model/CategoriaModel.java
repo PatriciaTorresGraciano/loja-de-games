@@ -9,10 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Entity(name = "tb_categoria")
+@Entity
 public class CategoriaModel {
 	
 	@Id
@@ -20,7 +19,7 @@ public class CategoriaModel {
 	private long idCategoria;
 	
 	@NotBlank
-	private String nomeLoja;
+	private String categoria;
 
 	@NotBlank
 	private String tipoProduto;
@@ -31,7 +30,8 @@ public class CategoriaModel {
 	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL) 
 	@JsonIgnoreProperties("categoria") 
 	private List<ProdutoModel> produtos;
-	
+  
+
 	public long getIdCategoria() {
 		return idCategoria;
 	}
@@ -40,21 +40,14 @@ public class CategoriaModel {
 		this.idCategoria = idCategoria;
 	}
 
-	public String getNomeLoja() {
-		return nomeLoja;
+	public String getCategoria() {
+		return categoria;
 	}
 
-	public void setNomeLoja(String nomeLoja) {
-		this.nomeLoja = nomeLoja;
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
-
-	public String getTipoProduto() {
-		return tipoProduto;
-	}
-
-	public void setTipoProduto(String tipoProduto) {
-		this.tipoProduto = tipoProduto;
-	}
+	
 
 	public List<ProdutoModel> getProdutos() {
 		return produtos;
