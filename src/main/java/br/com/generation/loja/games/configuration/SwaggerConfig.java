@@ -21,10 +21,8 @@ public class SwaggerConfig {
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
 				.apis(RequestHandlerSelectors.basePackage("br.com.generation.loja.games.controller"))
-				.paths(PathSelectors.any()).build().apiInfo(metadata()).useDefaultResponseMessages(false)
-				.globalResponses(HttpMethod.GET, responseMessage()).globalResponses(HttpMethod.POST, responseMessage())
-				.globalResponses(HttpMethod.PUT, responseMessage())
-				.globalResponses(HttpMethod.DELETE, responseMessage());
+				.paths(PathSelectors.any()).build().apiInfo(metadata()).useDefaultResponseMessages(false);
+				
 	}
 
 	public static ApiInfo metadata() {
