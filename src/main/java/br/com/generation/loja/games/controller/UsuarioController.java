@@ -24,8 +24,9 @@ import br.com.generation.loja.games.model.dtos.CredenciaisDTO;
 import br.com.generation.loja.games.model.dtos.UsuarioLoginDTO;
 import br.com.generation.loja.games.repository.UsuarioRepository;
 import br.com.generation.loja.games.servicos.UsuarioServicos;
-
-
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/api/v1/usuario")
@@ -35,6 +36,12 @@ public class UsuarioController {
 	private @Autowired UsuarioRepository repositorio;
 	private @Autowired UsuarioServicos servicos;
 
+	@ApiOperation(value = "Busca lista de usuarios no sistema")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Retorna com Usuarios"),
+			@ApiResponse(code = 204, message = "Retorno sem Usuario")
+	})
+	
 	@GetMapping("/todes")
 	public ResponseEntity<List<UsuarioModel>> pegarTodes() {
 		List<UsuarioModel> objetoLista = repositorio.findAll();
@@ -46,6 +53,12 @@ public class UsuarioController {
 		}
 	}
 
+	@ApiOperation(value = "Busca usuario por nome")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Retorna usuario existente ou inexistente"),
+			@ApiResponse(code = 204, message = "Retorno inexistente")
+	})
+	
 	@GetMapping("/nome/{nome_usuario}")
 	public ResponseEntity<List<UsuarioModel>> buscarPorNomeI(@PathVariable(value = "nome_usuario") String nome) {
 		List<UsuarioModel> objetoLista = repositorio.findAllByNomeContainingIgnoreCase(nome);
@@ -68,6 +81,12 @@ public class UsuarioController {
 		}
 	}
 
+	@ApiOperation(value = "Busca usuario por Id")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Retorna usuario existente ou inexistente"),
+			@ApiResponse(code = 400, message = "Retorno inexistente")
+	})
+	
 	@GetMapping("/{id_usuario}")
 	public ResponseEntity<UsuarioModel> buscarPorId(@PathVariable(value = "id_usuario") Long idUsuario) {
 		return repositorio.findById(idUsuario).map(resp -> ResponseEntity.status(200).body(resp))
@@ -78,6 +97,12 @@ public class UsuarioController {
 
 	}
 
+	@ApiOperation(value = "Salva novo usuario no sistema")
+	@ApiResponses(value = {
+			@ApiResponse(code = 201, message = "Retorna usuario cadastrado"),
+			@ApiResponse(code = 400, message = "Erro na requisição")
+	})
+	
 	@PostMapping("/salvar")
 	public ResponseEntity<Object> salvar(@Valid @RequestBody UsuarioModel novoUsuario) {
 		return servicos.cadastrarUsuario(novoUsuario).map(resp -> ResponseEntity.status(201).body(resp))
@@ -88,12 +113,22 @@ public class UsuarioController {
 
 	}
 	
+	@ApiOperation(value = "Autentica usuario no sistema")
+	@ApiResponses(value = {
+			@ApiResponse(code = 201, message = "Retorna credenciais de usuario"),
+			@ApiResponse(code = 400, message = "Erro na requisição!")
+	})
+	
 	@PutMapping("/credenciais")
 	public ResponseEntity<CredenciaisDTO> credenciais(@Valid @RequestBody UsuarioLoginDTO usuarioParaAutenticar) {
 		return servicos.pegarCredenciais(usuarioParaAutenticar);
 	}
 
-
+	@ApiOperation(value = "Deletar usuario existente")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Caso deletado!"),
+			@ApiResponse(code = 400, message = "Id de usuario invalido")
+	})
 
 	@DeleteMapping("/deletar/{id_usuario}")
 	public ResponseEntity<Object> deletar(@PathVariable(value = "id_usuario") Long idUsuario) {
@@ -106,3 +141,4 @@ public class UsuarioController {
 		});
 	}
 }
+
